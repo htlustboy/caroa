@@ -48,6 +48,7 @@
 				</div>
 				<div class="form row">  
 		            <form class="form-horizontal col-sm-offset-3 col-md-offset-3" id="register_form" action="${base }/login/doregisiter"  method="post">  
+		            <input type="hidden" name="token" value="${token }" readonly="readonly">
 		                <div class="col-sm-12 col-md-6">  
 		                    <div class="form-group">  
 		                        <i class="fa fa-user fa-lg"></i>  

@@ -1,5 +1,7 @@
 package com.caroa.service.user;
 
+import java.util.UUID;
+
 import javax.annotation.Resource;
 
 import org.apache.shiro.SecurityUtils;
@@ -51,5 +53,20 @@ public class UserService {
 	//根据用户名查找用户
 	public User queryUserByName(String username){
 		return userMapper.queryUserByName(username);
+	}
+	
+	//注册用户
+	public void save(String username,String password,String displayName,String email,String address,String phoneNum,String memo){
+		User user = new User();
+		String id = UUID.randomUUID().toString().replaceAll("-", "");
+		user.setId(id);
+		user.setUsername(username);
+		user.setPassword(BaseUtil.password2Hex(username, password));
+		user.setDisplayName(displayName);
+		user.setEmail(email);
+		user.setPhoneNum(phoneNum);
+		user.setAddress(address);
+		user.setMemo(memo);
+		userMapper.save(user);
 	}
 }

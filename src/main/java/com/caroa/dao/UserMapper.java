@@ -9,4 +9,6 @@ import com.caroa.model.User;
 public interface UserMapper {
 	
 	User queryUserByName(@Param("username")String username);
+	
+	void save(@Param("user")User user);
 }

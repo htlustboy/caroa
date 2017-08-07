@@ -17,4 +17,8 @@
 	<select id="queryUserByName" resultMap="userMap">
 		select * from t_user t where 1=1 and t.username=#{username}
 	</select>
+	
+	<insert id="save">
+		insert into t_user values (#{id},#{username},#{password},#{displayName},#{email},#{phoneNum},#{address},#{memo})
+	</insert>
 </mapper>

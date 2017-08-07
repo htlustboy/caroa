@@ -50,7 +50,7 @@ public class LoginController extends BaseController{
 	//注册事件
 	@FormData(remove=true)
 	@RequestMapping("/doregisiter")
-	public String doregisiter(){
+	public String doregisiter(Model model){
 		String username = this.getRequest().getParameter("username");
 		String password = this.getRequest().getParameter("password");
 		String displayName = this.getRequest().getParameter("displayName");
@@ -59,6 +59,7 @@ public class LoginController extends BaseController{
 		String phoneNum = this.getRequest().getParameter("phoneNum");
 		String memo = this.getRequest().getParameter("memo");
 		userService.save(username,password,displayName,email,address,phoneNum,memo);
-		return "";
+		model.addAttribute("message" ,"注册成功！");
+		return "/common/success";
 	}
 }
