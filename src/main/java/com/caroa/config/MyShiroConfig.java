@@ -8,7 +8,6 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authc.credential.SimpleCredentialsMatcher;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.mgt.SecurityManager;
-import org.apache.shiro.realm.jdbc.JdbcRealm;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
@@ -18,6 +17,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.caroa.common.JdbcRealm;
 import com.caroa.util.BaseUtil;
 
 @Configuration
@@ -82,7 +82,7 @@ public class MyShiroConfig {
 	 * @return
 	 */
 	@Bean
-	public SecurityManager securityManager(@Qualifier("jdbcRealm")JdbcRealm jdbcRealm){
+	public SecurityManager securityManager(@Qualifier("jdbcRealm")com.caroa.common.JdbcRealm jdbcRealm){
 		DefaultWebSecurityManager manager = new DefaultWebSecurityManager();
 		manager.setRealm(jdbcRealm);
 		logger.info("shiro核心事务安全管理加载完毕-------------------------------------------------------------------------");

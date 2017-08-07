@@ -6,6 +6,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+/**
+ * 路径拦截器
+ * @author ht
+ *
+ */
 public class BaseHandlerInterceptor implements HandlerInterceptor{
 
 	@Override
@@ -19,7 +24,7 @@ public class BaseHandlerInterceptor implements HandlerInterceptor{
 	public void postHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
-			
+		//添加路径变量
 		String scheme = request.getScheme();
 		String serverName = request.getServerName();
 		int port = request.getServerPort();
@@ -27,9 +32,6 @@ public class BaseHandlerInterceptor implements HandlerInterceptor{
 		String basePath = scheme + "://" + serverName + ":" + port + path;
 		modelAndView.addObject("base", path);
 		modelAndView.addObject("basePath", basePath);
-		String prefix = request.getRequestURI().substring(0, request.getRequestURI().lastIndexOf("/")+1);
-		modelAndView.setViewName(prefix+modelAndView.getViewName());
-		System.out.println(modelAndView.getViewName());
 	}
 
 	@Override

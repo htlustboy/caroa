@@ -18,6 +18,6 @@ public class Application {
 		logger.info("程序启动>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		SpringApplication.run(Application.class, args);
 		logger.info("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<启动完成");
-		logger.info("访问地址:localhost:8090/index");
+		logger.info("访问地址:localhost:8090/login/index");
 	}
 }
