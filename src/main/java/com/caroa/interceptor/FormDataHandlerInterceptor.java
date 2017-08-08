@@ -36,7 +36,7 @@ public class FormDataHandlerInterceptor implements HandlerInterceptor{
 				boolean need2RemoveSession = annotation.remove();
 				if (need2RemoveSession) {
 					if(isRepearSubmit(request)){
-						request.getSession().setAttribute("message", "请不要重复提交!");
+						request.getSession().setAttribute("errorMsg", "请不要重复提交!");
 						response.sendRedirect("/toerror");
 						return false;
 					}

@@ -7,7 +7,7 @@
 <title>Error</title>
 </head>
 <body>
-	<h3 style="color: red">${message }</h3>
+	<h3 style="color: red">${errorMsg }</h3>
 	<br>
 	<a href="${base }/login/index">点击返回登陆</a>
 </body>

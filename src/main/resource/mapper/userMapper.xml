@@ -18,7 +18,8 @@
 		select * from t_user t where 1=1 and t.username=#{username}
 	</select>
 	
-	<insert id="save">
-		insert into t_user values (#{id},#{username},#{password},#{displayName},#{email},#{phoneNum},#{address},#{memo})
+	<insert id="saveUser" parameterType="com.caroa.model.User">
+		insert into t_user(id,username,password,display_name,email,phone_num,address,memo) 
+		values (#{id},#{username},#{password},#{displayName},#{email},#{phoneNum},#{address},#{memo})
 	</insert>
 </mapper>

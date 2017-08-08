@@ -46,17 +46,19 @@ public class MyShiroConfig {
 		ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
 		bean.setSecurityManager(manager);
 		//配置最基本的url访问路径
-		bean.setLoginUrl("/base/index");
-		bean.setSuccessUrl("/base/success");
-		bean.setUnauthorizedUrl("/base/unauthor");
+		bean.setLoginUrl("/index");
+		bean.setSuccessUrl("/success");
+		bean.setUnauthorizedUrl("/unauthor");
 		//设置url访问过滤器
 		LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
-		filterChainDefinitionMap.put("/base/index", "anon"); //首页
-		filterChainDefinitionMap.put("/base/error", "anon"); //错误页面
-		filterChainDefinitionMap.put("/base/regisiter", "anon"); //注册
-		filterChainDefinitionMap.put("/base/login", "anon"); //登陆
-		filterChainDefinitionMap.put("/base/logout", "anon"); //注销
-		filterChainDefinitionMap.put("/common/*","authc");
+		filterChainDefinitionMap.put("/index", "anon"); //首页
+		filterChainDefinitionMap.put("/login/index", "anon"); //首页
+		filterChainDefinitionMap.put("/toerror", "anon"); //错误页面
+		filterChainDefinitionMap.put("/login/regisiter", "anon"); //注册
+		filterChainDefinitionMap.put("/login/login", "anon"); //登陆
+		filterChainDefinitionMap.put("/login/logout", "anon"); //注销
+		filterChainDefinitionMap.put("/*/**","authc");
+		filterChainDefinitionMap.put("/common/**", "authc[admin]");
 		bean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 		logger.info("shiro加载完毕-------------------------------------------------------------------------------------");
 		return bean;
@@ -82,7 +84,7 @@ public class MyShiroConfig {
 	 * @return
 	 */
 	@Bean
-	public SecurityManager securityManager(@Qualifier("jdbcRealm")com.caroa.common.JdbcRealm jdbcRealm){
+	public SecurityManager securityManager(com.caroa.common.JdbcRealm jdbcRealm){
 		DefaultWebSecurityManager manager = new DefaultWebSecurityManager();
 		manager.setRealm(jdbcRealm);
 		logger.info("shiro核心事务安全管理加载完毕-------------------------------------------------------------------------");

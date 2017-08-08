@@ -29,10 +29,13 @@ public class UserService {
 	
 	public TaskStatus doLogin(String username,String password,String remember){
 		Subject currentUser = SecurityUtils.getSubject();
+		currentUser.logout();
 		if(!currentUser.isAuthenticated()){
 			UsernamePasswordToken token = new UsernamePasswordToken(username, password);
 			if (BaseUtil.isNotBlank(remember)) {
 				token.setRememberMe(true);
+			}else{
+				token.setRememberMe(false);
 			}
 			try {
 				currentUser.login(token);
@@ -67,6 +70,6 @@ public class UserService {
 		user.setPhoneNum(phoneNum);
 		user.setAddress(address);
 		user.setMemo(memo);
-		userMapper.save(user);
+		userMapper.saveUser(user);
 	}
 }

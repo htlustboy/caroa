@@ -3,8 +3,15 @@ package com.caroa.util;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.UnavailableSecurityManagerException;
 import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.subject.Subject;
+
+import com.caroa.model.User;
+
 
 /**
  * 字符串工具类
@@ -244,8 +251,40 @@ public class BaseUtil {
 		return new SimpleHash(hashAlgorithmName, password, salt,hashIterations).toHex();
 	}
 	
+	/**
+	 * 注销当前用户
+	 */
+	public static void logout(){
+		Subject currentUser = SecurityUtils.getSubject();
+		if(currentUser.isAuthenticated()){
+			currentUser.logout();
+		}
+	}
+	
+	/**
+	 * 判断是否登陆
+	 * @return
+	 */
+	public static boolean isLogin(){
+		return SecurityUtils.getSubject().isAuthenticated();
+	}
+	
+	/**
+	 * @return 获取当前登陆的用户
+	 */
+	public static User getCurrentUser(){
+		User user = null;
+		try {
+			user = (User) SecurityUtils.getSubject().getPrincipal();
+		} catch (UnavailableSecurityManagerException e) {
+		}
+		return user;
+	}
+	
 	public static void main(String[] args) {
-		System.out.println(password2Hex("hutao", "123456"));//f7c3aea7e18076502c9e29fc4d4d16f9
+		System.out.println(UUID.randomUUID().toString().replaceAll("-", ""));
+		System.out.println(password2Hex("lustboy", "123456"));//f7c3aea7e18076502c9e29fc4d4d16f9
+		System.out.println(getCurrentUser());
 	}
 	
 }

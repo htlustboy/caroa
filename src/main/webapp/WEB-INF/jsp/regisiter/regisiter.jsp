@@ -84,7 +84,7 @@
 		                    </div>  
 		                    <div class="form-group">  
 		                        <input type="submit" class="btn btn-info pull-right"  value="注册"/>  
-		                        <input type="button" class="btn btn-success pull-right" style="margin-right: 20px;" value="返回 "/>  
+		                        <a href="${base }/index" class="btn btn-success pull-right" style="margin-right: 20px;" >返回</a>  
 		                    </div>  
 		                </div>  
 		            </form>  
@@ -123,7 +123,7 @@ $(function(){
 	                        message: '用户昵称不能为空'
 	                  }
 				}
-			}
+			},
 		    password: {
                 validators: {
                     notEmpty: {

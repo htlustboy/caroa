@@ -10,6 +10,7 @@ import com.caroa.common.TaskStatus;
 import com.caroa.common.TaskStatus.Result;
 import com.caroa.controller.BaseController;
 import com.caroa.service.user.UserService;
+import com.caroa.util.BaseUtil;
 
 @Controller
 @RequestMapping("/login")
@@ -19,14 +20,13 @@ public class LoginController extends BaseController{
 	UserService userService;
 	
 	//首页
-	@FormData(save=true)
 	@RequestMapping("/index")
 	public String index(Model model){
+		//注销用户
 		return R.view("/login/login");
 	}
 	
 	//登陆
-	@FormData(remove=true)
 	@RequestMapping("/login")
 	public String login(Model model){
 		String username = this.getRequest().getParameter("username");
@@ -34,10 +34,10 @@ public class LoginController extends BaseController{
 		String isRemember = this.getRequest().getParameter("remember");
 		TaskStatus status = userService.doLogin(username, password, isRemember);
 		if(status.getResult().equals(Result.NG)){
-			model.addAttribute("message", "未找到该用户");
+			model.addAttribute("message", status.getMessage());
 			return R.view("/login/login");
 		}
-		return "/index/index";
+		return "/index";
 	}
 	
 	//注册
@@ -61,5 +61,12 @@ public class LoginController extends BaseController{
 		userService.save(username,password,displayName,email,address,phoneNum,memo);
 		model.addAttribute("message" ,"注册成功！");
 		return "/common/success";
+	}
+	
+	//注销
+	@RequestMapping("/logout")
+	public String logout(){
+		BaseUtil.logout();
+		return "redirect:/index";
 	}
 }

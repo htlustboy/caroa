@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.caroa.dao.PermissionMapper">
+
+	<resultMap type="com.caroa.model.Permission" id="permissionMap">
+		<id property="id" column="id"/>
+		<result property="permissionName" column="permission_name"/>
+	</resultMap>
+	
+	<!-- 根据roleId查找所有的权限集合 -->
+	<select id="getPermissionNameByRid" resultType="java.lang.String">
+		select t.permission_name from t_permission t 
+		left join t_role_permission u on t.id=u.permission_id and u.role_id=#{roleId}
+	</select>
+</mapper>

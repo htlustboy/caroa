@@ -2,8 +2,6 @@ package com.caroa.common;
 
 import java.io.Serializable;
 
-import com.caroa.util.BaseUtil;
-
 public class TaskStatus implements Serializable{
 	
 	/**
@@ -18,7 +16,6 @@ public class TaskStatus implements Serializable{
 		OK
 	}
 	private Result result;
-	@SuppressWarnings("unused")
 	private String message;
 	
 	/** 处理成功 **/
@@ -80,12 +77,11 @@ public class TaskStatus implements Serializable{
 	}
 
 	public String getMessage() {
-		return BaseUtil.isNotBlank(this.getMessage())?this.getMessage():"处理成功";
+		return message;
 	}
 
-	public TaskStatus setMessage(String message) {
+	public void setMessage(String message) {
 		this.message = message;
-		return this;
 	}
 	
 	

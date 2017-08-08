@@ -1,6 +1,16 @@
 package com.caroa.model;
 
-public class User {
+import java.io.Serializable;
+
+import org.springframework.boot.orm.jpa.EntityScan;
+
+@EntityScan
+public class User implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	private String id;
 	private String username;

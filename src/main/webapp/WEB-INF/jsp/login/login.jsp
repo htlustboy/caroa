@@ -61,7 +61,6 @@
 					</div>
 					<div class="col-md-5 column">
 						<form action="${base }/login/login" class="form-signin" role="form" method="post">
-							<input type="hidden" name="token" value="${token }" readonly="readonly"><br>
 							<h2 class="form-signin-heading">欢迎登陆</h2>
 							<input type="text" name="username" class="form-control" placeholder="账号" required autofocus>
 							<input type="password" name="password" class="form-control" placeholder="密码" required>
