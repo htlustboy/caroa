@@ -11,18 +11,18 @@ public class IndexController extends BaseController{
 	//首页
 	@RequestMapping("/index")
 	public String index(){
-		return "/login/login";
+		return R.view("/index");
 	}
 	
 	//错误页面
 	@RequestMapping("/toerror")
 	public String error(){
-		return "/common/error";
+		return R.view("/common/error");
 	}
 	
 	//没有权限
 	@RequestMapping("/unauthor")
 	public String unauthor(){
-		return "/common/unauthor";
+		return R.view("/common/unauthor");
 	}
 }

@@ -54,7 +54,7 @@ public class BaseController implements EnvironmentAware{
     	}
     	
 	    public static String view(String viewPath, boolean isRediredt) {
-           return String.format("%s%s.html", isRediredt ? "redirect:/" : "", viewPath);
+           return String.format("%s%s", isRediredt ? "redirect:" : "", viewPath);
         }
 
     }

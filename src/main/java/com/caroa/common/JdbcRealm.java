@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -15,7 +16,9 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
 
 import com.caroa.model.Role;
@@ -70,7 +73,11 @@ public class JdbcRealm extends AuthorizingRealm{
 		Object credentials = user.getPassword();
 		//盐值
 		ByteSource salt = ByteSource.Util.bytes(username);
-		return new SimpleAuthenticationInfo(user, credentials, salt,getName());
+		AuthenticationInfo info = new SimpleAuthenticationInfo(user, credentials, salt,getName());
+		Subject currentUser = SecurityUtils.getSubject();
+		Session session = currentUser.getSession();
+		session.setAttribute("user", user);
+		return info;
 	}
 
 }

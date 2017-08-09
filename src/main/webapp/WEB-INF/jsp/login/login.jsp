@@ -7,9 +7,9 @@
 <style type="text/css">
 	body{
 		margin: 0px;
+ 		background-image: url('${basePath}/resource/img/timg.jpg'); 
 	}
 	.container{
-		background-image: url('${basePath}/resource/img/timg.jpg');
 		background-repeat: no-repeat;
 	}
 	.form-signin{

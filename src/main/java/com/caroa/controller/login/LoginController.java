@@ -22,8 +22,7 @@ public class LoginController extends BaseController{
 	//首页
 	@RequestMapping("/index")
 	public String index(Model model){
-		//注销用户
-		return R.view("/login/login");
+		return R.view("login/login");
 	}
 	
 	//登陆
@@ -37,14 +36,14 @@ public class LoginController extends BaseController{
 			model.addAttribute("message", status.getMessage());
 			return R.view("/login/login");
 		}
-		return "/index";
+		return R.view("/index");
 	}
 	
 	//注册
 	@FormData(save=true)
 	@RequestMapping("/regisiter")
 	public String regisiter(){
-		return "regisiter/regisiter";
+		return R.view("regisiter/regisiter");
 	}
 	
 	//注册事件
@@ -60,13 +59,13 @@ public class LoginController extends BaseController{
 		String memo = this.getRequest().getParameter("memo");
 		userService.save(username,password,displayName,email,address,phoneNum,memo);
 		model.addAttribute("message" ,"注册成功！");
-		return "/common/success";
+		return R.view("/common/success");
 	}
 	
 	//注销
 	@RequestMapping("/logout")
 	public String logout(){
 		BaseUtil.logout();
-		return "redirect:/index";
+		return R.view("/index", true);
 	}
 }
