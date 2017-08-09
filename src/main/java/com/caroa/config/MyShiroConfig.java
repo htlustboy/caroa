@@ -52,11 +52,9 @@ public class MyShiroConfig {
 		//设置url访问过滤器
 		LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
 		filterChainDefinitionMap.put("/index", "anon"); //首页
-		filterChainDefinitionMap.put("/login/index", "anon"); //首页
 		filterChainDefinitionMap.put("/toerror", "anon"); //错误页面
-		filterChainDefinitionMap.put("/login/regisiter", "anon"); //注册
-		filterChainDefinitionMap.put("/login/login", "anon"); //登陆
-		filterChainDefinitionMap.put("/login/logout", "anon"); //注销
+		filterChainDefinitionMap.put("/login/**", "anon"); //登陆页面
+		filterChainDefinitionMap.put("/resource/**", "anon");//静态资源
 		filterChainDefinitionMap.put("/*/**","authc");
 		filterChainDefinitionMap.put("/common/**", "authc[admin]");
 		bean.setFilterChainDefinitionMap(filterChainDefinitionMap);

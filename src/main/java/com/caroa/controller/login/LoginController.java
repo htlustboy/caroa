@@ -62,6 +62,12 @@ public class LoginController extends BaseController{
 		return R.view("/common/success");
 	}
 	
+	//找回密码
+	@RequestMapping("/findPwd")
+	public String findPassword(){
+		return R.view("/password/password");
+	}
+	
 	//注销
 	@RequestMapping("/logout")
 	public String logout(){

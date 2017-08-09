@@ -11,6 +11,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -22,6 +23,7 @@ import redis.clients.jedis.JedisPoolConfig;
 
 import com.alibaba.druid.pool.DruidDataSourceFactory;
 import com.caroa.common.RedisClient;
+import com.caroa.servlet.ValidServlet;
 
 /**
  * @author ht
@@ -120,6 +122,16 @@ public class MyWebConfig {
 		redClient.setJedisPool(jedisPool);
 		logger.info("初始化redis--------------------------------------------------------------------------------------");
 		return redClient;
+	}
+	
+	/**
+	 * 注册自己的Servlet
+	 * @return
+	 */
+	@Bean
+	public ServletRegistrationBean servletRegistrationBean(){
+		logger.info("初始化Servlet-------------------------------------------------------------------------------------");
+		return new ServletRegistrationBean(new ValidServlet(), "/valid");
 	}
 	
 }

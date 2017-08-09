@@ -9,6 +9,6 @@
 <body>
 	<h2 style="color:green;">${message}</h2>
 	<br>
-	<a href="${base }/index">点击返回登录页面</a>
+	<a href="${base }/login/index">点击返回登录页面</a>
 </body>
 </html>

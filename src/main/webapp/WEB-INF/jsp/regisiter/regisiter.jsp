@@ -84,7 +84,7 @@
 		                    </div>  
 		                    <div class="form-group">  
 		                        <input type="submit" class="btn btn-info pull-right"  value="注册"/>  
-		                        <a href="${base }/index" class="btn btn-success pull-right" style="margin-right: 20px;" >返回</a>  
+		                        <a href="${base }/login/index" class="btn btn-success pull-right" style="margin-right: 20px;" >返回</a>  
 		                    </div>  
 		                </div>  
 		            </form>  
@@ -101,7 +101,7 @@ $(function(){
 	$("#register_form").bootstrapValidator({
 		fields:{
 			username:{
-				message : '用户名输入不合法',
+				threshold:4,
 				validators:{
 					notEmpty:{
 						message:'用户名不能为空'
@@ -110,6 +110,11 @@ $(function(){
                         min: 6,
                         max: 30,
                         message: '用户名长度必须在6-30位'
+                    },
+                    remote: {
+                    	url:"${base}/login/validUserName.json",
+                    	message:"用户已被注册",
+                    	type:"POST"
                     },
                     regexp: {
                         regexp: /^[a-zA-Z0-9_\.]+$/,

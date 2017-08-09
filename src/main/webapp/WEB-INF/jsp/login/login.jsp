@@ -7,10 +7,10 @@
 <style type="text/css">
 	body{
 		margin: 0px;
- 		background-image: url('${basePath}/resource/img/timg.jpg'); 
 	}
 	.container{
 		background-repeat: no-repeat;
+ 		background-image: url('${basePath}/resource/img/timg.jpg'); 
 	}
 	.form-signin{
 		height:450px;
@@ -47,7 +47,7 @@
 					</div>
 				</div>
 				
-				<div class="row clearfix">
+				<div class="row">
 					<div class="col-md-7 column">
 						<div class="jumbotron">
 							<h1>
@@ -65,8 +65,9 @@
 							<input type="text" name="username" class="form-control" placeholder="账号" required autofocus>
 							<input type="password" name="password" class="form-control" placeholder="密码" required>
 							<label class="checkbox">
-								<input type="checkbox" name="remember" value="true">记住我
-								<a href="${base }/login/regisiter" style="margin-left: 170px">点击注册</a>
+								<input type="checkbox" name="remember" value="true"><span style="font-size: 12px;">记住我</span>
+								<a href="${base }/login/findPwd" style="margin-left: 138px">找回密码</a>
+								<a href="${base }/login/regisiter" style="margin-left: 1px">注册</a>
 							</label>
 							<button class="btn btn-lg btn-primary btn-block" type="submit">登陆</button>
 							<br><span style="color: red;">${message }</span>
