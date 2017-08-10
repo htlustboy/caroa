@@ -76,7 +76,7 @@ public class ValidUtil {
 		//保存到session
 		HttpSession session = request.getSession();
 		session.setAttribute("codeValidate", builderCode.toString());
-		System.out.println(builderCode.toString());
+//		System.out.println(builderCode.toString());
 		//禁止图像缓存
 		response.setHeader("Pragma", "no-cache");
         response.setHeader("Cache-Control", "no-cache");

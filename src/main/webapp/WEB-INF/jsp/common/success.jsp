@@ -7,7 +7,7 @@
 <title>成功页面</title>
 </head>
 <body>
-	<h2 style="color:green;">${message}</h2>
+	<h4 style="color:green;">${message}</h4>
 	<br>
 	<a href="${base }/login/index">点击返回登录页面</a>
 </body>

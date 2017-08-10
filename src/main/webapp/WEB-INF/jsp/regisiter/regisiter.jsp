@@ -112,7 +112,7 @@ $(function(){
                         message: '用户名长度必须在6-30位'
                     },
                     remote: {
-                    	url:"${base}/login/validUserName.json",
+                    	url:"${base}/login/ajaxValidUserName.json",
                     	message:"用户已被注册",
                     	type:"POST"
                     },

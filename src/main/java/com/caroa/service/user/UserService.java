@@ -72,4 +72,20 @@ public class UserService {
 		user.setMemo(memo);
 		userMapper.saveUser(user);
 	}
+	
+	//更新
+	public void updateUserCode(String username,String code){
+		userMapper.updateUserCode(username,code);
+	}
+	
+	//清除激活码,定时任务
+	public void clearCode(){
+		userMapper.clearCode();
+	}
+	
+	//修改密码
+	public Boolean updatePwd(String username,String password,String code){
+		int result = userMapper.updatePwd(username,password,code);
+		return result==1?true:false;
+	}
 }

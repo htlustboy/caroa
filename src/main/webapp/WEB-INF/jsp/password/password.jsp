@@ -47,7 +47,7 @@
 					</div>
 				</div>
 				<div class="form row-center">  
-		            <form class="form-horizontal" id="register_form" action="${base }/login/doregisiter"  method="post">  
+		            <form class="form-horizontal" id="password_form" action="${base }/login/doFindPwd"  method="post">  
 		            	<div class="row">
                             <div class="form-group">
                                 <label class="control-label control-label-left col-md-3" style="font-size: 16px;">请输入用户名:</label>
@@ -68,18 +68,22 @@
                             <div class="form-group">
                                 <label class="control-label control-label-left col-md-3" style="font-size: 16px;">请输入验证码:</label>
                                 <div class="col-md-2">
-                                   <input class="form-control required" type="text" placeholder="" name="email" />
+                                   <input class="form-control required" type="text" placeholder="" value="" name="code" />
                                 </div>
-                                <div class="col-md-2">
- 									<img id="codevalidate" src="${base}/aaa" width="90" height="20" style="margin-left: 10px">
+                                <div class="col-md-4">
+ 									<img id="codevalidate" src="${base}/valid/aaa" width="90" height="30" style="margin-top: 2px">
+	 								<a href="javascript:changeUrl()" style="padding:20px;">看不清，换一张</a>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                        <div class="col-md-12 col-md-offset-6">
+                         <div class="col-md-6">
+                        	<span id="message" style="color: red;float: left;font-size: 16px;margin-left: 230px;" hidden>aaa</span>
+                        </div>
+                        <div class="col-md-6">
                             <div class="btn-toolbar margin-top-10">
                                 <div class="btn-group">
-                                    <button type="submit" class="btn btn-primary">确定</button>
+                                    <a onclick="doSubmit();"  type="button" class="btn btn-primary">确定</a>
                                 </div>
                                 <div class="btn-group">
                                     <a href="${base }/login/index" type="button" class="btn btn-primary">取消</a>
@@ -95,5 +99,42 @@
 		</div>
 	</div>
 </body>
-
+<script type="text/javascript">
+	
+	function changeUrl(){
+		$("#codevalidate").prop("src","${base}/valid/"+new Date());
+	}
+	
+	function doSubmit(){
+		var username = $("input[name='username']").val();
+		var email = $("input[name='email']").val();
+		var code = $("input[name='code']").val();
+		if(username==null || username==""){
+			alert("请输入用户名");
+			return;
+		}
+		if(email==null || email==""){
+			alert("请输入注册邮箱");
+			return;
+		}
+		if(code==null || code==""){
+			alert("请输入验证码");
+			return;
+		}
+		//ajax提交表单
+		$.ajax({
+			url:"${base}/login/ajaxFindPwd.json",
+			type:"POST",
+			data:{"username":username,"email":email,"code":code},
+			success(result){
+				if(result.message!="OK"){
+					$("#message").html(result.message);
+					$("#message").show();
+				}else{
+					location.href="${base}/login/sendEmail?email="+email+"&username="+username;
+				}
+			}
+		});
+	}
+</script>
 </html>

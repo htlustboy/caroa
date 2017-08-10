@@ -54,6 +54,7 @@ public class MyShiroConfig {
 		filterChainDefinitionMap.put("/index", "anon"); //首页
 		filterChainDefinitionMap.put("/toerror", "anon"); //错误页面
 		filterChainDefinitionMap.put("/login/**", "anon"); //登陆页面
+		filterChainDefinitionMap.put("/valid/**", "anon");//验证码
 		filterChainDefinitionMap.put("/resource/**", "anon");//静态资源
 		filterChainDefinitionMap.put("/*/**","authc");
 		filterChainDefinitionMap.put("/common/**", "authc[admin]");

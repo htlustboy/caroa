@@ -20,6 +20,9 @@ public class User implements Serializable{
 	private String phoneNum;
 	private String address;
 	private String memo;
+	private int isEnable;
+	private String intergral;
+	private String code;
 	
 	public String getId() {
 		return id;
@@ -68,6 +71,24 @@ public class User implements Serializable{
 	}
 	public void setMemo(String memo) {
 		this.memo = memo;
+	}
+	public int getIsEnable() {
+		return isEnable;
+	}
+	public void setIsEnable(int isEnable) {
+		this.isEnable = isEnable;
+	}
+	public String getIntergral() {
+		return intergral;
+	}
+	public void setIntergral(String intergral) {
+		this.intergral = intergral;
+	}
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
 	}
 	
 }

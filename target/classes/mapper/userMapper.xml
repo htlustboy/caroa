@@ -12,6 +12,9 @@
 		<result property="phoneNum" column="phone_num"/>
 		<result property="address" column="address"/>
 		<result property="memo" column="memo"/>
+		<result property="isEnable" column="is_enable"/>
+		<result property="intergral" column="intergral"/>
+		<result property="code" column="code"/>
 	</resultMap>
 	
 	<select id="queryUserByName" resultMap="userMap">
@@ -22,4 +25,16 @@
 		insert into t_user(id,username,password,display_name,email,phone_num,address,memo) 
 		values (#{id},#{username},#{password},#{displayName},#{email},#{phoneNum},#{address},#{memo})
 	</insert>
+	
+	<update id="updateUserCode">
+		update t_user set code=#{code} where 1=1 and username=#{username}
+	</update>
+	
+	<update id="clearCode">
+		update t_user set code = null
+	</update>
+	
+	<update id="updatePwd">
+		update t_user set password=#{password} where 1=1 and username=#{username} and code=#{code}
+	</update>
 </mapper>

@@ -131,7 +131,7 @@ public class MyWebConfig {
 	@Bean
 	public ServletRegistrationBean servletRegistrationBean(){
 		logger.info("初始化Servlet-------------------------------------------------------------------------------------");
-		return new ServletRegistrationBean(new ValidServlet(), "/valid");
+		return new ServletRegistrationBean(new ValidServlet(), "/valid/*");
 	}
 	
 }

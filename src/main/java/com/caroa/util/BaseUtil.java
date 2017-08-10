@@ -281,6 +281,27 @@ public class BaseUtil {
 		return user;
 	}
 	
+	/**
+	 * 生成UUID
+	 * @return
+	 */
+	public static String getUUID(){
+		return UUID.randomUUID().toString().replaceAll("-", "");
+	}
+	
+	
+	/**
+	 * 获取指定长度的UUID字符串
+	 * @param length
+	 * @return
+	 */
+	public static String getRamdomUUID(int length){
+		if(length<=0 || length>=32){
+			length = 16;
+		}
+		return UUID.randomUUID().toString().replaceAll("-", "").substring(0, length);
+	}
+	
 	public static void main(String[] args) {
 		System.out.println(UUID.randomUUID().toString().replaceAll("-", ""));
 		System.out.println(password2Hex("lustboy", "123456"));//f7c3aea7e18076502c9e29fc4d4d16f9
