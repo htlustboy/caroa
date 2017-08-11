@@ -25,7 +25,7 @@ public class LoginController extends BaseController{
 	//首页
 	@RequestMapping("/index")
 	public String index(Model model){
-		return R.view("login/login");
+		return "login/login";
 	}
 	
 	//登陆
@@ -46,7 +46,7 @@ public class LoginController extends BaseController{
 	@FormData(save=true)
 	@RequestMapping("/regisiter")
 	public String regisiter(){
-		return R.view("regisiter/regisiter");
+		return R.view("login/regisiter");
 	}
 	
 	//注册事件
@@ -68,14 +68,12 @@ public class LoginController extends BaseController{
 	//找回密码页面
 	@RequestMapping("/findPwd")
 	public String findPassword(){
-		return R.view("/password/password");
+		return R.view("/login/password");
 	}
 	
 	//注销
 	@RequestMapping("/logout")
 	public String logout(){
-		//清空session
-		this.getRequest().getSession().invalidate();
 		BaseUtil.logout();
 		return R.view("/index", true);
 	}
@@ -105,7 +103,7 @@ public class LoginController extends BaseController{
 	public String openEmail(Model model){
 		String username = this.getRequest().getParameter("username");
 		model.addAttribute("username", username);
-		return R.view("/password/update");
+		return R.view("/login/update");
 	}
 	
 	//修改密码事件

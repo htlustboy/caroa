@@ -14,4 +14,9 @@ public class Constant {
 	public static final String Email_Transport_PROTOCOL = "smtp";
 	public static final String Email_Smtp_AUTH = "true";
 	
+	//文件类型
+	public static final String File_TYPE_NEWFILE = "newfile"; //最新文件
+	public static final String File_TYPE_HOTFILE = "hotfile"; //热门文件
+	public static final String File_TYPE_HISTORY = "historyfile_";
+	
 }

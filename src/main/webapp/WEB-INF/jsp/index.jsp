@@ -8,6 +8,9 @@
 	body{
 		background-color:#a55c5c;
 	}
+	li{
+		font-size: 16px;
+	}
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>首页</title>
@@ -264,86 +267,23 @@
 				<div class="col-md-4 column">
 					<h4 style="color: green">热门文档</h4>
 					<ol >
-						<li>
-							Lorem ipsum dolor sit amet
-						</li>
-						<li>
-							Consectetur adipiscing elit
-						</li>
-						<li>
-							Integer molestie lorem at massa
-						</li>
-						<li>
-							Facilisis in pretium nisl aliquet
-						</li>
-						<li>
-							Nulla volutpat aliquam velit
-						</li>
-						<li>
-							Faucibus porta lacus fringilla vel
-						</li>
-						<li>
-							Aenean sit amet erat nunc
-						</li>
-						<li>
-							Eget porttitor lorem
-						</li>
+						<c:forEach items="${hotfile }" var="map">
+							<li><a href="${base }/file/fileDetail/${map.id }" fid="${map.id }">${map.fileName }</a></li>
+						</c:forEach>
 					</ol>
 					
 					<h4 style="color: green">最新文档</h4>
 					<ol>
-						<li>
-							Lorem ipsum dolor sit amet
-						</li>
-						<li>
-							Consectetur adipiscing elit
-						</li>
-						<li>
-							Integer molestie lorem at massa
-						</li>
-						<li>
-							Facilisis in pretium nisl aliquet
-						</li>
-						<li>
-							Nulla volutpat aliquam velit
-						</li>
-						<li>
-							Faucibus porta lacus fringilla vel
-						</li>
-						<li>
-							Aenean sit amet erat nunc
-						</li>
-						<li>
-							Eget porttitor lorem
-						</li>
+						<c:forEach items="${newfile }" var="map">
+							<li><a href="${base }/file/fileDetail/${map.id }" fid="${map.id }">${map.fileName }</a></li>
+						</c:forEach>
 					</ol>
 					
 					<h4 style="color: green">历史纪录</h4>
-					<ol>
-						<li>
-							Lorem ipsum dolor sit amet
-						</li>
-						<li>
-							Consectetur adipiscing elit
-						</li>
-						<li>
-							Integer molestie lorem at massa
-						</li>
-						<li>
-							Facilisis in pretium nisl aliquet
-						</li>
-						<li>
-							Nulla volutpat aliquam velit
-						</li>
-						<li>
-							Faucibus porta lacus fringilla vel
-						</li>
-						<li>
-							Aenean sit amet erat nunc
-						</li>
-						<li>
-							Eget porttitor lorem
-						</li>
+					<ol>	
+						<c:forEach var="cookie" items="${history }">
+							<li>${cookie.name }</li>
+						</c:forEach>
 					</ol>
 				</div>
 			</div>
@@ -360,4 +300,7 @@
 		</div>
 	</div>
 </body>
+<script type="text/javascript">
+	
+</script>
 </html>

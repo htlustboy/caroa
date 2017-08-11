@@ -1,5 +1,6 @@
 package com.caroa.common;
 
+import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
 /**
@@ -19,5 +20,17 @@ public class RedisClient {
 	//设置缓存池
 	public void setJedisPool(JedisPool jedisPool){
 		this.jedisPool = jedisPool;
+	}
+	
+	//获取jedis对象
+	public Jedis getJedis(){
+		return getJedisPool().getResource();
+	}
+	
+	//释放资源
+	public void returnReource(Jedis jedis){
+		if(jedis!=null){
+			jedis.close();
+		}
 	}
 }

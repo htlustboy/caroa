@@ -107,9 +107,9 @@ $(function(){
 						message:'用户名不能为空'
 					},
 					stringLength: {
-                        min: 6,
-                        max: 30,
-                        message: '用户名长度必须在6-30位'
+                        min: 5,
+                        max: 16,
+                        message: '用户名长度必须在5-16位'
                     },
                     remote: {
                     	url:"${base}/login/ajaxValidUserName.json",
