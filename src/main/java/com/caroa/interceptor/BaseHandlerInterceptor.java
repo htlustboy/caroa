@@ -24,6 +24,11 @@ public class BaseHandlerInterceptor implements HandlerInterceptor{
 	public void postHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
+		
+		String method = request.getServletPath();
+		if(method.endsWith(".json")){
+			return;
+		}
 		//添加路径变量
 		String scheme = request.getScheme();
 		String serverName = request.getServerName();

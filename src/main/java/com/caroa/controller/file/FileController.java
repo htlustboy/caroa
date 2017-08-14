@@ -24,7 +24,6 @@ public class FileController extends BaseController{
 	@RequestMapping(value="/fileDetail/{fid}",method=RequestMethod.GET)
 	public String fileDetail(@PathVariable("fid")String fid,Model model){
 		File file = fileService.findById(fid);
-		
 		model.addAttribute("file", file);
 		return "/file/detail";
 	}

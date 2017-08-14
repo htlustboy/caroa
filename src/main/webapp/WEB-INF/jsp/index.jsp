@@ -1,3 +1,4 @@
+<%@page import="com.caroa.constant.Constant"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="./common/common.jsp" %>
@@ -72,9 +73,6 @@
 							<li class="dropdown">
 								 <a href="#" class="dropdown-toggle" data-toggle="dropdown">个人设置<strong class="caret"></strong></a>
 								<ul class="dropdown-menu">
-									<li>
-										 <a href="#">个人信息</a>
-									</li>
 									<li>
 										 <a href="#">个人信息</a>
 									</li>
@@ -276,13 +274,6 @@
 					<ol>
 						<c:forEach items="${newfile }" var="map">
 							<li><a href="${base }/file/fileDetail/${map.id }" fid="${map.id }">${map.fileName }</a></li>
-						</c:forEach>
-					</ol>
-					
-					<h4 style="color: green">历史纪录</h4>
-					<ol>	
-						<c:forEach var="cookie" items="${history }">
-							<li>${cookie.name }</li>
 						</c:forEach>
 					</ol>
 				</div>

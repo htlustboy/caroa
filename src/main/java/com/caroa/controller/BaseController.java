@@ -1,5 +1,10 @@
 package com.caroa.controller;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -17,7 +22,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 public class BaseController implements EnvironmentAware{
 
-	@SuppressWarnings("unused")
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	protected Environment environment;
@@ -56,6 +60,31 @@ public class BaseController implements EnvironmentAware{
 	    public static String view(String viewPath, boolean isRediredt) {
            return String.format("%s%s", isRediredt ? "redirect:" : "", viewPath);
         }
-
+    }
+    
+    //文件输出
+    public Object readFile(String filePath){
+    	StringBuilder sb = new StringBuilder("");
+    	  File file = new File(filePath);
+          BufferedReader reader = null;
+          try {
+              reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "gbk"));
+              String tempString = null;
+              while ((tempString = reader.readLine()) != null) {
+                  sb.append(tempString+"<br>");
+              }
+              reader.close();
+          } catch (IOException e) {
+              e.printStackTrace();
+          } finally {
+              if (reader != null) {
+                  try {
+                      reader.close();
+                  } catch (IOException e1) {
+                	  logger.warn(e1.getMessage());
+                  }
+              }
+          }
+          return sb.toString();
     }
 }

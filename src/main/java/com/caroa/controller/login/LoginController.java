@@ -39,7 +39,7 @@ public class LoginController extends BaseController{
 			model.addAttribute("message", status.getMessage());
 			return R.view("/login/login");
 		}
-		return R.view("/index");
+		return R.view("/index",true);
 	}
 	
 	//注册

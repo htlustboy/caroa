@@ -20,7 +20,7 @@
 		select 
 			t.id as id,
 			t.file_name as fileName
-		from t_file t where 1=1 and is_enable=1 order by t.create_date desc limit 10
+		from t_file t where 1=1 and is_enable=1 order by t.create_date desc limit 20
 	</select>
 	
 	<!-- 查找热门文件 -->
@@ -28,7 +28,7 @@
 		select 
 			t.id as id,
 			t.file_name as fileName
-		from t_file t where 1=1 and is_enable=1 order by t.click_rate desc limit 10
+		from t_file t where 1=1 and is_enable=1 order by t.click_rate desc limit 20
 	</select>
 	
 	<!-- 根据文件查找文件 -->
