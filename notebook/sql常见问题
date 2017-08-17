@@ -1,0 +1,5 @@
+1.如何在一张表中查找出重复出现的语句
+
+答：select * from 表名  group by 重复的字段值  having count(*)>1 ;
+
+ 

@@ -24,7 +24,7 @@
 			<div class="col-md-10 column">
 				<div class="page-header">
 					<h2 style="width: 80%">
-						<small>标题： </small>${file.fileName }
+						标题：${file.fileName }
 					</h2>
 					<span>创建时间：<fmt:formatDate  value="${file.createDate }" pattern="yyyy-MM-dd hh:mm:ss"></fmt:formatDate ></span>
 					<span style="margin-left: 650px;"><a href="${base }/index">点击返回</a></span>

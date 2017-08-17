@@ -1,0 +1,8 @@
+1.hibernate运行的整个流程？
+答：1).应用程序先调用Configuration类，该类读取Hibernate配置文件以及映射文件中的信息
+   2).用这些信息生成一个SessionFactory对象
+   3).从SessionFactory对象生成一个Session对象
+   4).用Session对象生成Transaction对象
+   5).数据持久化操作
+   6).关闭Session
+   7).关闭SessionFactory

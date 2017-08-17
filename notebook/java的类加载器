@@ -1,0 +1,29 @@
+1.什么是类加载器?
+答：类加载器是一个用来加载类文件的类，根据一个指定的类名称，找到该类对应的字节码文件，然后解析成一个java类。
+
+2.类加载器有哪几种?
+答：四种，BootStrap ClassLoader,引导类加载器，用来加载 jre/lib/tr.jar,无法用java代码获取
+   Extendsion ClassLoader,扩展类加载器，用来加载 jre/ext/*.jar
+   System ClassLoader,系统类加载器，又可以称为Application ClassLoader,用来加载应用类路径下的类。
+        自定义类加载器,通过继承java.lang.ClassLoader类的方式实现
+        
+3.类的生命周期?
+答：加载（加载字节码文件）—— 验证（验证字节码是否合法）—— 准备（加载类变量，即static方法或变量）—— 解析 （将常量池中的符号引用替换为直接引用）
+   —— 初始化（执行类的构造函数）—— 使用 —— 卸载（从内存中释放） （其中验证，准备，解析又称为链接）
+   
+4.类加载器的运行机制?
+答：双亲委派模型
+
+5.什么是委托，即双亲委派机制?
+答：即某个特定的类加载器在加载类的时候，首先将加载任务委托给父类加载器，然后父类加载器又委托给上级，直到最上层（BootStrap ClassLoader）,如果父类加载器
+       可以完成类的加载任务，就返回成功，如果不行就向下传递委托任务，由子类加载器进行加载。
+       
+6.双亲委派机制的好处?
+答：java类会随着它的类加载器一起具备了带有优先级的层次，保证了java核心库的安全。（即你不能自己定义一个java.lang.String类）
+
+7.Class.forName()与 ClassLoader.loadClass()的区别?
+答：Class.forName()得到的类是初始化完毕的，可以直接使用
+   Class.loadClass得到的类是还没有链接的，无法直接使用
+   
+8.Class.forName与ClassLoader.loadClass的应用场景?
+答：只需要知道这个类是否存在而不需要使用的时候可以用ClassLoader.loadClass(),如果要使用的话必须用Class.forName()
