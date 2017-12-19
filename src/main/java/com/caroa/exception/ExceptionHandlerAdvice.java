@@ -8,7 +8,7 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-//@ControllerAdvice
+@ControllerAdvice
 public class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler implements HandlerExceptionResolver{
 
 	@Override
@@ -18,7 +18,7 @@ public class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler imple
 		String message = ex.getMessage();
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("message", message);
-		modelAndView.setViewName("/common/unauthor");
+		modelAndView.setViewName("/common/error");
 		return modelAndView;
 	}
 }

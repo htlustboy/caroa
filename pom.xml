@@ -14,7 +14,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
-   <!-- 设置jdk的版本，防止maven在update的时候回滚 -->
+  <!-- 设置jdk的版本，防止maven在update的时候回滚 -->
   <profiles>
   	<profile>
   		<id>jdk-1.7</id>

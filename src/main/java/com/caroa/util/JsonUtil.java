@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -140,7 +141,8 @@ public class JsonUtil {
         {
             JSONObject jsonObject = (JSONObject) obj;
             Map<String, Object> map = new HashMap<String, Object>();
-            Iterator it = jsonObject.keys();
+            @SuppressWarnings("rawtypes")
+			Iterator it = jsonObject.keys();
             while (it.hasNext())
             {
                 String key = (String) it.next();

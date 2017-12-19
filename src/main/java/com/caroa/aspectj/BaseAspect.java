@@ -1,8 +1,12 @@
 package com.caroa.aspectj;
 
+
+import java.util.Date;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
@@ -41,6 +45,11 @@ public class BaseAspect {
 			}
 		}
 		return null;
+	}
+	
+	@AfterThrowing(value="basePointCut()",throwing="e")
+	public void afterThrowing(Throwable e){
+		logger.warn(e.getMessage()+":"+new Date());
 	}
 	
 }

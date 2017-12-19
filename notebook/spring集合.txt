@@ -1,0 +1,12 @@
+1.spring配置bean的三种方式 (自动化配置，java类配置，xml配置)
+
+2.spring依赖注入的两种方式 (构造器注入，setter注入)
+
+3.spring获取上下文的方式
+ (FileSystemXmlApplicationContext,ClassPathXmlApplicationContext,XmlWebApplicationContext)
+ 
+4.spring中bean的作用域
+(单例(singleton),原型(prototype),会话(session),请求(request),全局(global session))
+
+5.spring环境下配置多数据源
+(http://blog.csdn.net/rava722/article/details/53177622)
