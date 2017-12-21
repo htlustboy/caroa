@@ -1,12 +1,61 @@
 1.spring配置bean的三种方式 (自动化配置，java类配置，xml配置)
 
+
 2.spring依赖注入的两种方式 (构造器注入，setter注入)
+
 
 3.spring获取上下文的方式
  (FileSystemXmlApplicationContext,ClassPathXmlApplicationContext,XmlWebApplicationContext)
  
+ 
 4.spring中bean的作用域
 (单例(singleton),原型(prototype),会话(session),请求(request),全局(global session))
 
+
 5.spring环境下配置多数据源
 (http://blog.csdn.net/rava722/article/details/53177622)
+
+
+6.spring加载全过程
+(A).通过applicationContext.xml文件注册ContextLoaderListener
+(B).启动程序web程序时，调用ContextLoaderListener这个类，该类继承了ContextLoader类，并且实现了ServletContextListener类。
+        然后调用contextInitialized()这个方法，该方法调用initWebApplicationContext()
+(C).initWebApplicationContext()方式主要是注册spring上下文（context），并把context存放到ROOT节点中
+(D).initWebApplicationContext()中最重要的是调用configureAndRefreshWebApplicationContext()方法
+(E).configureAndRefreshWebApplicationContext()主要作用是加载配置文件中的参数，具体设置根据web.xml中的contextConfigLocation，
+       方法最后调用了refresh()方法,这是spring的核心方法
+(F).refresh()方法定义在ConfigurableApplicationContext接口中，具体实现在AbstractApplicatioContext中。refresh()方法的
+       主要功能就是注册beanFactory并且加载bean。至此spring加载完毕。
+(G).当程序终止,调用ContextLoaderListener中的contextDestroyed()销毁上下文
+
+
+7.spring核心方法refresh()解析
+a).prepareRefresh(),加载数据前的准备，其中validateRequiredProperties()目的是否防止别人重写AbstractApplicationContext,保证数据的正确性。
+b).obtainFreshBeanFactory(),解析配置文件,注册一个beanFactory
+c).prepareBeanFactory(),将beanFatory注册到上下文
+d).postProcessBeanFactory(),加载bean,但没有被实例化,注册bean的作用域
+e).invokeBeanFactoryPostProcessors(),通过代理的方式来对beanFactory实现调用
+f).registerBeanPostProcessors(),注册bean,当使用bean的时候才会被调用
+g).initMessageSource(),初始化消息源,如果beanFactory不存在此bean则采用默认的配置并设置父类MessageSource
+h).initApplicationEventMulticaster(),初始化注册表
+i).onRefresh(),加载其他的bean,在SpringMVC中,DispathcerServlet的核心方法之一
+j).registerListeners(),注册监听器
+k).finishBeanFactoryInitialization(),完成beanFactory初始化
+l).finishRefresh(),完成
+m).resetCommonCaches(),清理缓存
+
+
+8.spring AOP的两种代理方式
+(JDK代理和CGLIB代理)
+a、如果目标对象实现了接口，默认情况下会采用JDK的动态代理实现AOP 
+b、如果目标对象实现了接口，可以强制使用CGLIB实现AOP 
+c、如果目标对象没有实现了接口，必须采用CGLIB库，spring会自动在JDK动态代理和CGLIB之间转换
+
+
+9.JDK代理与CGLIB代理的区别
+(java动态代理是利用反射机制生成的一个实现代理接口的匿名类，在调用具体方法前调用invokeHandler来处理。而CGLIB动态代理是利用asm开源包，把代理对象类加载进来，通过修改其字节码文件生成子类来处理)
+
+
+10.如何强制spring使用CGLIB代理
+a.添加CGLIB库
+b.在spring配置文件中加入<aop:aspectj-autoproxy proxy-target-class="true" />
