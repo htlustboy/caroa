@@ -212,6 +212,27 @@
 	    <classifier>jdk15</classifier>
 	</dependency>
 
+	<!-- https://mvnrepository.com/artifact/com.github.albfernandez/itext2 -->
+	<dependency>
+	    <groupId>com.github.albfernandez</groupId>
+	    <artifactId>itext2</artifactId>
+	    <version>2.1.14</version>
+	</dependency>
+
+	
+	<!-- https://mvnrepository.com/artifact/com.itextpdf/itext-asian -->
+	<dependency>
+	    <groupId>com.itextpdf</groupId>
+	    <artifactId>itext-asian</artifactId>
+	    <version>5.2.0</version>
+	</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+	<dependency>
+	    <groupId>org.apache.poi</groupId>
+	    <artifactId>poi</artifactId>
+	    <version>3.17</version>
+	</dependency>
 	
   </dependencies>
 </project>

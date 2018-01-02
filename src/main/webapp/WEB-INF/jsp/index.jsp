@@ -283,13 +283,13 @@
 </div>
 <div class="container">
 	<div class="row clearfix" style="margin-top: 30px;">
-			<div class="col-md-12 column">
-				<p style="text-align: center;font-size: 16px;color: white;">
-					copyright@20170809-lustboy-941015ace
-				</p> 
-			</div>
+		<div class="col-md-12 column">
+			<p style="text-align: center;font-size: 16px;color: white;">
+				copyright@20170809-lustboy-941015ace
+			</p> 
 		</div>
 	</div>
+</div>
 </body>
 <script type="text/javascript">
 	

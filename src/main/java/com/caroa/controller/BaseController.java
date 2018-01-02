@@ -13,13 +13,23 @@ import java.lang.annotation.Target;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
+@ControllerAdvice
 public class BaseController implements EnvironmentAware{
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -86,5 +96,50 @@ public class BaseController implements EnvironmentAware{
               }
           }
           return sb.toString();
+    }
+    
+    //文件下载
+    public ResponseEntity<byte[]> download(String filePath){
+    	filePath = filePath+"111";
+    	File file = new File(filePath);
+    	if(file.exists() && file.isFile()){
+    		HttpHeaders headers = new HttpHeaders();
+        	headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        	headers.setContentDispositionFormData("attachment", filePath);
+        	try {
+    			return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(new File(filePath)),headers, HttpStatus.CREATED);
+    		} catch (IOException e) {
+    			e.printStackTrace();
+    			logger.error(e.getMessage());
+    			return null;
+    		}
+    	}else{
+    		try {
+				throw new Exception(filePath+" 文件不存在");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+    		return null;
+    	}
+    }
+    
+    //异常页面处理,500
+    @ExceptionHandler({RuntimeException.class})
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ModelAndView processException(RuntimeException exception){
+    	ModelAndView mav = new ModelAndView();
+    	mav.addObject("message", exception.getMessage());
+    	mav.setViewName("/common/500");
+    	return mav;
+    }
+    
+    //异常页面处理,404
+    @ExceptionHandler({Exception.class})
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ModelAndView NotFoundException(RuntimeException exception){
+    	ModelAndView mav = new ModelAndView();
+    	mav.addObject("message", exception.getMessage());
+    	mav.setViewName("/common/404");
+    	return mav;
     }
 }

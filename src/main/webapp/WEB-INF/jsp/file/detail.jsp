@@ -8,7 +8,7 @@
 	body{
  		background-image: url('${basePath}/resource/img/bg3.jpg'); 
 	}
-	.container{
+	#container{
 		background-repeat: no-repeat;
  		background-image: url('${basePath}/resource/img/timg.jpg'); 
 	}	
@@ -17,7 +17,7 @@
 <title>查看</title>
 </head>
 <body>
-	<div class="container">
+	<div class="container" id="container">
 		<div class="row clearfix">
 			<div class="col-md-1 column">
 			</div>
@@ -34,8 +34,20 @@
 				<p id="content" style=" word-wrap:break-word; word-break:normal; ">
 					
 				</p>
+				<span><a style="font-size: 22px;" href="${base }/file/download?filePath=${file.filePath }" filePath='${file.filePath }'>下载</a></span>
+				<br>
 			</div>
 			<div class="col-md-1 column">
+				
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row clearfix" style="margin-top: 30px;">
+			<div class="col-md-12 column">
+				<p style="text-align: center;font-size: 16px;color: blank;">
+					copyright@20170809-lustboy-941015ace
+				</p> 
 			</div>
 		</div>
 	</div>
@@ -51,5 +63,6 @@
 			}
 		});
 	});
+	
 </script>
 </html>

@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.caroa.util.BaseUtil;
+
 /**
  * 路径拦截器
  * @author ht
@@ -16,8 +18,17 @@ public class BaseHandlerInterceptor implements HandlerInterceptor{
 	@Override
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
-		
-		return true;
+		String url = request.getServletPath();
+		if(url.equals("/index")){
+			if(!BaseUtil.isLogin()){
+				response.sendRedirect(request.getContextPath()+"/login/index");
+				return false;
+			}else{
+				return true;
+			}
+		}else{
+			return true;
+		}
 	}
 
 	@Override

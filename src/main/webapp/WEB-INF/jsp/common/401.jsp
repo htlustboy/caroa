@@ -4,10 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Error</title>
+<title>401</title>
 </head>
 <body>
-	<h3 style="color: red">${message }</h3>
+	<h3 style="color: red">401</h3>
 	<br>
 	<a href="${base }/login/index">点击返回登陆</a>
 </body>

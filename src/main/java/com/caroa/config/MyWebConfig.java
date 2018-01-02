@@ -11,16 +11,12 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
-import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
-import org.springframework.boot.context.embedded.ErrorPage;
 import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-import org.springframework.http.HttpStatus;
 
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -60,16 +56,8 @@ public class MyWebConfig {
 			ds = DruidDataSourceFactory.createDataSource(properties);
 			logger.info("使用数据源1-----------------------------------------------------------------------------------");
 		} catch (Exception e) {
-			properties.put("driverClassName", environment.getProperty("jdbc.driverClassName2"));
-			properties.put("url", environment.getProperty("jdbc.url2"));
-			properties.put("username", environment.getProperty("jdbc.username2"));
-			properties.put("passowrd", environment.getProperty("jdbc.password2"));
-			try {
-				ds = DruidDataSourceFactory.createDataSource(properties);
-				logger.info("使用数据源2-------------------------------------------------------------------------------");
-			} catch (Exception e2) {
-				logger.error("数据源创建失败！");
-			}
+			e.printStackTrace();
+			logger.error(e.getMessage());
 		}
 		return ds;
 	}
@@ -138,20 +126,4 @@ public class MyWebConfig {
 		return new ServletRegistrationBean(new ValidServlet(), "/valid/*");
 	}
 	
-	/**
-	 * 自定义异常页面
-	 * @return
-	 */
-	@Bean
-	public EmbeddedServletContainerCustomizer containerCustomizer(){
-		return new EmbeddedServletContainerCustomizer() {
-			@Override
-			public void customize(ConfigurableEmbeddedServletContainer container) {
-				ErrorPage error401Page = new ErrorPage(HttpStatus.UNAUTHORIZED, "/common/401.jsp");
-				ErrorPage error404Page = new ErrorPage(HttpStatus.NOT_FOUND, "/common/404.jsp");
-				ErrorPage error500Page = new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, "/common/500.jsp");
-				container.addErrorPages(error401Page,error404Page,error500Page);
-			}
-		}; 
-	}	
 }
