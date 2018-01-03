@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -14,19 +15,19 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-
-
-
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.caroa.annotcaion.Export;
 import com.caroa.model.TT;
-import com.caroa.model.export.TTVo;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
@@ -153,8 +154,6 @@ public class TextUtil {
 		int rowIndex = 0;
 		//创建表头
 		HSSFRow row = sheet.createRow(rowIndex);
-		//表头右对齐
-		style.setAlignment(HorizontalAlignment.LEFT);
 		//表头依次创建单元格
 		HSSFCell cell = null;
 		
@@ -237,11 +236,82 @@ public class TextUtil {
 	}
 	
 	
+	/**
+	 * 导入excel文件
+	 * @param filePath
+	 */
+	public static List<List<String>> importExcel(String filePath){
+		String suffix = BaseUtil.getSuffix(filePath);
+		if(!("xls".equals(suffix))&&!("xlsx").equals(suffix)){
+			System.out.println(String.format("%s 格式不正确", filePath));
+			return null;
+		}
+		try {
+			FileInputStream in = new FileInputStream(filePath);
+			Workbook workBook = getWorkBook(suffix,in);
+			List<List<String>> list = new ArrayList<>();
+			for(int numSheet = 0;numSheet<workBook.getNumberOfSheets();numSheet++){
+				Sheet sheet = workBook.getSheetAt(numSheet);
+				if(sheet==null){
+					continue;
+				}
+				//循环row
+				for(int rowNum=1;rowNum<=sheet.getLastRowNum();rowNum++){
+					Row hssfRow = sheet.getRow(rowNum);
+					if(hssfRow==null){
+						continue;
+					}
+					List<String> rowValues = new ArrayList<>();
+					//获取单元格数据
+					for(int cellNum=0;cellNum<=hssfRow.getLastCellNum();cellNum++){
+						Cell cell = hssfRow.getCell(cellNum);
+						if(cell==null){
+							rowValues.add("");
+						}else{
+							rowValues.add(String.valueOf(hssfRow.getCell(cellNum)));
+						}
+					}
+					in.close();
+					list.add(rowValues);
+				}
+			}
+			return list;
+		} catch (FileNotFoundException e) {
+			System.out.println("没有找到文件");
+			e.printStackTrace();
+			return null;
+		}catch (IOException e) {
+			System.out.println("读取xls或xlsx文件失败");
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	
+	/**
+	 * 获取工作簿
+	 * @param suffix
+	 * @return
+	 * @throws IOException 
+	 */
+	private static Workbook getWorkBook(String suffix,InputStream in) throws IOException{
+		if("xls".equals(suffix)){
+			return new HSSFWorkbook(in);
+		}else if("xlsx".equals(suffix)){
+			return new XSSFWorkbook(in);
+		}else{
+			return null;
+		}
+	}
+	
 	public static void main(String[] args) throws DocumentException, IOException {
 //		txtFile2Pdf("C:\\Users\\gaojk\\Desktop\\bug.txt", "D:\\测试.pdf");
 //		txtFile2Word("C:\\Users\\gaojk\\Desktop\\bug.txt", "D:\\测试.word");
-		List<TT> list = initData();
-		exportExcel(TT.class, TTVo.class, list);
+//		List<TT> list = initData();
+//		exportExcel(TT.class, TTVo.class, list);
+		//C:\\Users\\gaojk\\Desktop\\1514883979152.xls , C:\\Users\\gaojk\\Desktop\\库存转移.xlsx
+		List<List<String>> list = importExcel("C:\\Users\\gaojk\\Desktop\\1514883979152.xls");
+		System.out.println(list);
 	}
 	
 	public static List<TT> initData(){
