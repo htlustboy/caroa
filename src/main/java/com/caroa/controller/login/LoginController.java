@@ -13,7 +13,6 @@ import com.caroa.controller.BaseController;
 import com.caroa.model.User;
 import com.caroa.service.user.UserService;
 import com.caroa.util.BaseUtil;
-import com.caroa.util.EmailUtil;
 
 @Controller
 @RequestMapping("/login")
@@ -89,7 +88,7 @@ public class LoginController extends BaseController{
 		u.setIntergral(code);
 		userService.updateUserCode(username,code);
 		//2.发送邮件
-		EmailUtil.sendEmail(email, username, code);
+		sendMail(email, code);
 		String message = "尊敬的"+username+": ，密码找回已发送到您的邮箱，请打开 "+
 						 "<a href=/login/openEmail?username="+
 						 username+">"+email+

@@ -13,6 +13,8 @@ public class Constant {
 	public static final String Email_SMTPHOST = "smtp.163.com";
 	public static final String Email_Transport_PROTOCOL = "smtp";
 	public static final String Email_Smtp_AUTH = "true";
+	public static final String Email_DefaultEncode = "UTF-8";
+	public static final int Email_Smtp_Timeout = 25000;
 	
 	//文件类型
 	public static final String File_TYPE_NEWFILE = "newfile"; //最新文件

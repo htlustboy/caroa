@@ -9,19 +9,26 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.util.Date;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.core.env.Environment;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -29,12 +36,18 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.caroa.common.JavaMailSendImp;
+import com.caroa.constant.Constant;
+
 @ControllerAdvice
 public class BaseController implements EnvironmentAware{
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	protected Environment environment;
+	
+	@Autowired
+	protected JavaMailSendImp javaMailSender;
 	
 	@Override
 	public void setEnvironment(Environment environment) {
@@ -71,6 +84,8 @@ public class BaseController implements EnvironmentAware{
            return String.format("%s%s", isRediredt ? "redirect:" : "", viewPath);
         }
     }
+    
+    //=======================================================================================
     
     //文件输出
     public Object readFile(String filePath){
@@ -122,6 +137,49 @@ public class BaseController implements EnvironmentAware{
     		return null;
     	}
     }
+    
+    /**
+     * 发送普通邮件
+     * @param sendTo 接收人
+     * @param content 正文
+     */
+    public void sendMail(String sendTo,String content){
+    	SimpleMailMessage message = new SimpleMailMessage();
+		message.setFrom(Constant.Email_ACCOUNT);
+		message.setTo(sendTo);
+		message.setSubject("密码找回");
+		message.setText(content);
+		message.setSentDate(new Date());
+		javaMailSender.send(message);
+		logger.info("邮件发送成功...");
+    }
+    
+    /**
+     * 带附件的邮件发送
+     * @param sendTo
+     * @param content
+     * @param filePath
+     */
+    public void sendAttachmentEmail(String sendTo,String content,String filePath){
+		MimeMessage message = javaMailSender.createMimeMessage();
+		try {
+			MimeMessageHelper helper = new MimeMessageHelper(message, true);
+			helper.setFrom("hutao1187@163.com");
+			helper.setTo(sendTo);
+			helper.setSubject("带附件的邮件");
+			helper.setText(content);
+			helper.setSentDate(new Date());
+			//添加附件
+			FileSystemResource file = new FileSystemResource(filePath);
+			helper.addAttachment(file.getFilename(), file);
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+		
+		javaMailSender.send(message);
+		logger.info("邮件发送成功...");
+	}
+    //=======================================================================================
     
     //异常页面处理,500
     @ExceptionHandler({RuntimeException.class})
